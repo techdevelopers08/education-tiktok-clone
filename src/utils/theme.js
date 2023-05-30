@@ -5,6 +5,7 @@ export const Theme = {
     green: "#16624F",
     black: '#000',
     white: "#FFFFFF",
+    bottomTabColor: "#",
     rightAnswer: "#28B18F",
     orange: "#F17D23",
     light_orange: "#FBB668",

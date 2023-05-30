@@ -1,14 +1,15 @@
 import React from "react";
-import { View, Text, SafeAreaView, StyleSheet } from "react-native";
+import { View, Text, SafeAreaView, StyleSheet, BackHandler } from "react-native";
 import Home from "./src/screens/home";
 import { NavigationContainer } from "@react-navigation/native";
 import BottomNavigation from "./src/navigation/bottom-navigation";
+import StackNavigationScreen from "./src/navigation/stackNavigation";
 
 const App = () => {
-    return (
 
+    return (
         <NavigationContainer>
-            <BottomNavigation />
+            <StackNavigationScreen />
         </NavigationContainer>
 
     )

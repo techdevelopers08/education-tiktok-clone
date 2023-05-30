@@ -7,36 +7,35 @@ import Like from '../../assets/Vector.svg'
 import Flip from '../../assets/flip.svg'
 import Add from '../../assets/add.svg'
 import { Theme } from '../utils/theme'
-import { STRINGS } from '../utils/string'
 
 const FunctionalBar = () => {
     return (
         <View style={{ flexDirection: 'column', alignItems: "center" }}>
             <Add width={45} height={55} />
             <Text style={styles.iconText}>
-                {STRINGS.add}
+                140
             </Text>
 
             <Bookmark width={30} height={30} />
             <Text style={styles.iconText}>
-                {STRINGS.bookmarkNumber}
+                140
             </Text>
             <Share width={30} height={30} />
             <Text style={styles.iconText}>
-                {STRINGS.share}
+                140
             </Text>
 
             <Comment width={26.08} height={25.18} />
             <Text style={styles.iconText}>
-                {STRINGS.comment}
+                140
             </Text>
             <Like width={22} height={24} />
             <Text style={styles.iconText}>
-                {STRINGS.like}
+                140
             </Text>
             <Flip width={30} height={30} />
             <Text style={styles.iconText}>
-                {STRINGS.flip}
+                140
             </Text>
         </View>
     )

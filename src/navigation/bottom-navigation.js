@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View, StatusBar } from 'react-native';
 import HomeSvg from "../../assets/home.svg";
 import { Theme } from "../utils/theme";
 import HomeScreen from "../screens/home";
@@ -10,14 +10,11 @@ import Profile from "../../assets/profile.svg";
 import DiscoverScreen from "../screens/discover";
 import ActivityScreen from "../screens/Activity";
 import BookmarkScreen from "../screens/bookmark";
-import ProfileScreen from "../screens/profile";
-import { STRINGS } from "../utils/string";
-
+import SettingsScreen from "../screens/settings";
 const Tab = createBottomTabNavigator();
 
 const BottomNavigation = () => {
     return (
-
         <Tab.Navigator
             initialRouteName="HomeStack"
             screenOptions={{
@@ -39,49 +36,49 @@ const BottomNavigation = () => {
                 },
 
             }} >
-            <Tab.Screen name={STRINGS.home} component={HomeScreen}
+            <Tab.Screen name="HomeStack" component={HomeScreen}
                 options={({ }) => ({
                     tabBarIcon: ({ }) => <View style={styles.container}>
                         <HomeSvg width={21} height={21} />
                         <Text style={styles.fonStyleLabel}>
-                            {STRINGS.home}
+                            Home
                         </Text>
                     </View>
                 })}
             />
-            <Tab.Screen name={STRINGS.discover} component={DiscoverScreen}
+            <Tab.Screen name="SearchStack" component={DiscoverScreen}
                 options={({ }) => ({
                     tabBarIcon: ({ }) => <View style={styles.container}>
                         <Discover width={21} height={21} />
                         <Text style={styles.fonStyleLabel}>
-                            {STRINGS.discover}
+                            Discover
                         </Text>
                     </View>
                 })} />
-            <Tab.Screen name={STRINGS.activity} component={ActivityScreen}
+            <Tab.Screen name="UploadStack" component={ActivityScreen}
                 options={({ }) => ({
                     tabBarIcon: ({ }) => <View style={styles.container}>
                         <Activity width={21} height={21} />
                         <Text style={styles.fonStyleLabel}>
-                            {STRINGS.activity}
+                            Activity
                         </Text>
                     </View>
                 })} />
-            <Tab.Screen name={STRINGS.bookmark} component={BookmarkScreen}
+            <Tab.Screen name="ManageStack" component={BookmarkScreen}
                 options={({ }) => ({
                     tabBarIcon: ({ }) => <View style={styles.container}>
                         <Bookmark width={21} height={21} />
                         <Text style={styles.fonStyleLabel}>
-                            {STRINGS.bookmark}
+                            Bookmark
                         </Text>
                     </View>
                 })} />
-            <Tab.Screen name={STRINGS.profile} component={ProfileScreen}
+            <Tab.Screen name="settings" component={SettingsScreen}
                 options={({ }) => ({
                     tabBarIcon: ({ }) => <View style={styles.container}>
                         <Profile width={21} height={21} />
                         <Text style={styles.fonStyleLabel}>
-                            {STRINGS.profile}
+                            settings
                         </Text>
                     </View>
                 })} />

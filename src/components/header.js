@@ -1,24 +1,96 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, BackHandler, Alert, Platform } from 'react-native';
 import Clock from '../../assets/clock.svg'
 import Search from "../../assets/search.svg";
-import { STRINGS } from "../utils/string";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import RNExitApp from 'react-native-exit-app';
 
 const Header = (props) => {
     const [seconds, setSeconds] = useState(0);
+    const [childRestrictTime, setChildRestrictTime] = useState(-1);
+    // const navigation = useNavigation();
+
+    var timer = 0;
+
+    // const StoreTime = async () => {
+    //     await AsyncStorage.setItem("Time", seconds.toString());
+    // };
+
+    // const restoreTime = async () => {
+    //     await AsyncStorage.setItem("Time", "0");
+    //     await AsyncStorage.setItem("RestrictTime", "undefined");
+    //     await AsyncStorage.setItem("Date", "null");
+    // }
+
+    // const getTime = async () => {
+    //     const sec = await AsyncStorage.getItem("Time");
+    //     const resTime = await AsyncStorage.getItem("RestrictTime");
+    //     if (sec != undefined || sec != null && resTime != undefined || resTime != null) {
+    //         setSeconds(Number(sec));
+    //         setChildRestrictTime(Number(resTime));
+    //     }
+    // }
+
+    // const storeDate = async () => {
+    //     const date = new Date();
+    //     const time = date.toString().split(" ");
+    //     await AsyncStorage.setItem("Date", time[2]);
+    // }
+
+    // const getDate = async () => {
+    //     const getDate = await AsyncStorage.getItem("Date");
+    //     const date = new Date();
+    //     const time = date.toString().split(" ")
+    //     console.log(getDate, time[2]);
+    //     if (getDate != null) {
+    //         if (getDate !== "null") {
+    //             if (Number(getDate) < Number(time[2])) {
+    //                 restoreTime();
+    //                 getTime();
+    //                 return;
+    //             } else {
+    //                 Alert.alert('', 'Access Restricted!', [
+
+    //                     {
+    //                         text: 'OK', onPress: () => {
+    //                             if (Platform.OS == "android") {
+    //                                 BackHandler.exitApp();
+    //                             } else {
+    //                                 RNExitApp.exitApp();
+    //                             }
+    //                         }
+    //                     },
+    //                 ]);
+    //             }
+    //         }
+    //     }
+    // }
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setSeconds(seconds => seconds + 1);
-        }, 1000);
-        return () => clearInterval(interval);
-
-    }, [props?.activeIndex]);
+        // getDate();
+        // getTime();
+        // console.log(childRestrictTime, "CCCC");
+        if (seconds > childRestrictTime) {
+            timer = setInterval(() => {
+                setSeconds(seconds => seconds + 1);
+            }, 1000);
+        } else {
+            clearInterval(timer)
+        }
+    }, []);
 
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     const timerDisplay = `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
 
+    useEffect(() => {
+        // StoreTime();
+        if (timerDisplay.slice(0, -3) == childRestrictTime) {
+            clearInterval(timer)
+        } else {
+        }
+    }, [timerDisplay])
     return (
         <View style={{ ...style.mainView, paddingTop: 8 }}>
             <View style={{ ...style.middleView, marginTop: 6, marginLeft: 16 }}>
@@ -32,7 +104,7 @@ const Header = (props) => {
                 <View style={{ ...style.lineView, marginRight: 10 }}>
                     <TouchableOpacity onPress={() => props?.setFollowingOrForyou(true)}>
                         <Text style={{ ...style.text, fontWeight: props?.followingOrForyou ? 'bold' : '400' }}>
-                            {STRINGS.following}
+                            Following
                         </Text>
                         {
                             props?.followingOrForyou &&
@@ -42,7 +114,7 @@ const Header = (props) => {
                 </View>
                 <TouchableOpacity onPress={() => props?.setFollowingOrForyou(false)}>
                     <Text style={{ ...style.text, fontWeight: !props?.followingOrForyou ? 'bold' : '400' }}>
-                        {STRINGS.foryou}
+                        For you
                     </Text>
                     {
                         !props?.followingOrForyou && <View style={style.line}>
@@ -78,8 +150,7 @@ const style = StyleSheet.create({
     text: {
         color: 'white',
         fontWeight: '700',
-        fontSize: 18,
-        marginLeft: 10
+        fontSize: 18
     },
     middleView: {
         flexDirection: 'row',

@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Dimensions, FlatList, SafeAreaView } from 'react-native';
-import Header from '../../components/header';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet, Dimensions, TouchableOpacity, SafeAreaView } from 'react-native';
+import styles from './style';
+import { useNavigation } from "@react-navigation/native";
 import RenderFollowing from "../../components/renderFollowing";
 import RenderForyou from "../../components/renderForyou";
-import styles from './style';
+import Header from '../../components/header';
+
+
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [followingState, setFollowingState] = useState([]);
   const [foryouState, setForyouState] = useState([]);
@@ -67,12 +70,13 @@ const HomeScreen = () => {
     const offset = event.nativeEvent.contentOffset.y;
     const index = Math.round(offset / windowHeight - 80);
     setActiveIndex(index);
+    // console.log(activeIndex);
   };
 
 
   return (
     <SafeAreaView style={styles.container} >
-      <Header setFollowingOrForyou={setFollowingOrForyou} followingOrForyou={followingOrForyou} activeIndex={activeIndex} />
+      <Header setFollowingOrForyou={setFollowingOrForyou} followingOrForyou={followingOrForyou} activeIndex={activeIndex} navigation={navigation} />
       {
         followingOrForyou ?
           <FlatList
